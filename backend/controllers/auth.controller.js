@@ -66,7 +66,7 @@ export const signup = async (req, res) => {
         console.log("Error in signup controller", error);
         res.status(500).json({ error: "Internal server error" });
     }
-}
+};
 
 export const login = async (req, res) => {
     try {
@@ -96,7 +96,7 @@ export const login = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
 
     }
-}
+};
 
 export const logout = async (req, res) => {
     try {
@@ -106,7 +106,7 @@ export const logout = async (req, res) => {
         console.error("Error in logout controller", error);
         res.status(500).json({ error: "Internal server error" });
     }
-}
+};
 
 export const getMe = async (req, res) => {
     try {
@@ -116,4 +116,4 @@ export const getMe = async (req, res) => {
         console.log("Error in getMe controller", error.message);
         return res.status(500).json({error: "Internal server error"});
     }
-}
+};
