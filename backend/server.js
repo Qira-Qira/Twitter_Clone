@@ -5,6 +5,7 @@ import {v2 as cloudinary} from "cloudinary";
 
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
+import postRoutes from "./routes/post.route.js";
 
 import connectMongoDB from "./db/connectMongoDB.js";
 
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true }));// to parse urlencoded data
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
 
 
 app.listen(PORT, () => {
