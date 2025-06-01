@@ -10,14 +10,14 @@ const CreatePost = () => {
   const [img, setImg] = useState(null);
   const imgRef = useRef(null);
 
-  const { data: authUser } = useQuery({ queryKey: ["authUser"] });
   const queryClient = useQueryClient();
+  const authUser = queryClient.getQueryData(["authUser"]);
 
   const {
     mutate: createPost,
     isPending,
     isError,
-	error
+    error,
   } = useMutation({
     mutationFn: async ({ text, img }) => {
       try {
