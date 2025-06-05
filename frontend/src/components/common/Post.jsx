@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatPostDate } from "../../utils/date";
 
-const Post = ({ post }) => {
+const Post = ({ post, feedType, username, userId }) => {
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
   const authUser = queryClient.getQueryData(["authUser"]);
@@ -70,14 +70,18 @@ const Post = ({ post }) => {
       // queryClient.invalidateQueries({ queryKey: ["posts"] });
       // instead, update the cache directly for that post
 
-      queryClient.setQueryData(["posts"], (oldData) => {
-        return oldData.map((p) => {
-          if (p._id === post._id) {
-            return { ...p, likes: updatedLikes };
-          }
-          return p;
-        });
-      });
+      queryClient.setQueryData(
+        ["posts", feedType, username, userId],
+        (oldData) => {
+          if (!oldData) return oldData;
+          return oldData.map((p) => {
+            if (p._id === post._id) {
+              return { ...p, likes: updatedLikes };
+            }
+            return p;
+          });
+        }
+      );
     },
     onError: (error) => {
       toast.error(error.message);
@@ -106,7 +110,7 @@ const Post = ({ post }) => {
     onSuccess: (updatedComments) => {
       setComment("");
 
-      queryClient.setQueryData(["posts"], (oldData) => {
+      queryClient.setQueryData(["posts",feedType,username,userId], (oldData) => {
         return oldData.map((p) => {
           if (p._id === post._id) {
             return { ...p, comments: updatedComments };
