@@ -15,7 +15,8 @@ const Post = ({ post }) => {
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
   const authUser = queryClient.getQueryData(["authUser"]);
-  
+  if (!authUser || !post.user) return null;
+
   const postOwner = post.user;
   const isLiked = post.likes.includes(authUser._id);
 
