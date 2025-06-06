@@ -95,7 +95,7 @@ export const updateUser = async (req, res) => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!emailRegex.test(email)) {
+        if (email !== undefined && !emailRegex.test(email)) {
             return res.status(400).json({
                 error: "Invalid email address"
             });
