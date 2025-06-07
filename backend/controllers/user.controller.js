@@ -80,7 +80,7 @@ export const getSuggestedUsers = async (req, res) => {
 
         suggestedUsers.forEach((user) => (user.password = null));
 
-        res.status(200).json( suggestedUsers );
+        res.status(200).json(suggestedUsers);
     } catch (error) {
         console.log("Error in getSuggestedUsers: ", error.message);
         res.status(500).json({ error: "Internal server error" });
@@ -95,11 +95,13 @@ export const updateUser = async (req, res) => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (email !== undefined && !emailRegex.test(email)) {
-            return res.status(400).json({
-                error: "Invalid email address"
-            });
-        }
+    if (email !== undefined && !emailRegex.test(email)) {
+        return res.status(400).json({
+            error: "Invalid email address"
+        });
+    }
+
+    userId.email = (email !== undefined && email !== "") ? email : userId.email;
 
     try {
         let user = await User.findById(userId);
