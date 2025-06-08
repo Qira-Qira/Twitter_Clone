@@ -155,6 +155,6 @@ export const updateUser = async (req, res) => {
 
     } catch (error) {
         console.log("Error in updateUser: ", error.message);
-        return res.status(500).json({ error: error.message });
+        return res.status(500).json({ error: "Username already used" });
     }
 };
