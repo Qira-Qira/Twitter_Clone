@@ -46,32 +46,53 @@ function App() {
   }
 
   return (
-    <div className="flex max-w-6xl mx-auto">
-      {/* common component, bc it's not wrapped with Routes */}
-      {authUser && <Sidebar />}
-      <Routes>
-        <Route
-          path="/"
-          element={authUser ? <HomePage /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/login"
-          element={!authUser ? <LoginPage /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/signup"
-          element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/notifications"
-          element={authUser ? <NotificationPage /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/profile/:username"
-          element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
-        />
-      </Routes>
-      {authUser && <RightPanel />}
+    <div className="flex flex-wrap md:flex-nowrap max-w-6xl mx-auto">
+      {authUser && (
+        <aside
+          className=" flex-shrink-0
+      w-16 md:w-60
+      sticky top-0
+      h-screen
+     border-r border-gray-700"
+        >
+          <Sidebar />
+        </aside>
+      )}
+
+      <main className="flex-1 min-w-0">
+        <Routes>
+          <Route
+            path="/"
+            element={authUser ? <HomePage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/login"
+            element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/signup"
+            element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/notifications"
+            element={authUser ? <NotificationPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/:username"
+            element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
+          />
+        </Routes>
+        <div className="block lg:hidden">
+          <RightPanel />
+        </div>
+      </main>
+
+      {authUser && (
+        <aside className="hidden lg:block lg:w-72 xl:w-80">
+          <RightPanel />
+        </aside>
+      )}
+
       <Toaster />
     </div>
   );
